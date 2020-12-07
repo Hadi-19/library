@@ -25,4 +25,7 @@ db.once('open',()=>console.log('Connected to mongoDB..'))
 const router=require('./routes/index')
 app.use('/',router)
 
+const authorRouter=require('./routes/authors')
+app.use('/authors',authorRouter)
+
 app.listen(process.env.PORT ||3000,()=>{console.log("Listening...");})
