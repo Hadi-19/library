@@ -15,6 +15,7 @@ app.use(expressLayouts);
 
 
 app.use(express.static('public'))
+app.use(express.urlencoded({extended:false,limit:'10mb'}))
 
 const mongoose=require('mongoose')
 mongoose.connect(process.env.DATABASE_URL,{useNewUrlParser:true,useUnifiedTopology:true})
@@ -22,10 +23,10 @@ const db=mongoose.connection
 db.on('error',error=>console.error(error));
 db.once('open',()=>console.log('Connected to mongoDB..'))
 
-const router=require('./routes/index')
-app.use('/',router)
+const indexRouter=require('./routes/index')
+app.use('/',indexRouter)
 
 const authorRouter=require('./routes/authors')
 app.use('/authors',authorRouter)
 
-app.listen(process.env.PORT ||3000,()=>{console.log("Listening...");})
+app.listen(process.env.PORT ||8080,()=>{console.log("Listening...");})
