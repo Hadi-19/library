@@ -1,5 +1,5 @@
 const express=require('express')
-const Author = require('../models/author')
+const Author = require('../models/Author')
 const router=express.Router()
 
 //All authors route
@@ -19,10 +19,11 @@ router.get('/',async(req,res)=>{
    
 })
 
-//New authors route
+//New author route
 router.get('/new',(req,res)=>{
   
     res.render('authors/new.ejs',{author:new Author()})
+   
  })
 
 //Create author route
@@ -33,6 +34,7 @@ router.post('/',async(req,res)=>{
       const newAuthor= await author.save();
       // res.redirect(`authors/${author.id}`)
           res.redirect(`/authors`)
+        
     }
     catch{
       res.render('authors/new.ejs', {
