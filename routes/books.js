@@ -16,7 +16,23 @@ const upload=multer({
 
 //All books route
 router.get('/',async(req,res)=>{
-   res.send('All books')
+   let query = Book.find()
+   if(req.query.title){
+      query=query.regex('title',new RegExp(req.query.title,'i'))
+   }
+   if(req.query.publishedBefore){
+      query=query.lte('publishDate',req.query.publishedBefore)
+   }
+   if(req.query.publishedAfter){
+      query=query.gte('publishDate',req.query.publishedAfter)
+   }
+   try{
+      const books =await query.exec();
+      res.render('books/index',{books,searchOptions:req.query})
+   }
+   catch{
+      res.redirect('/')
+   }
    
 })
 
