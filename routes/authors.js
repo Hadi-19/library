@@ -13,8 +13,9 @@ router.get('/',async(req,res)=>{
       res.render('authors/index.ejs',{authors,
                                       searchOptions:req.query})
    } 
-   catch{
-      res.redirect('/')
+   catch(e){
+
+      res.redirect('/',{errorMsg:e})
    } 
    
 })
