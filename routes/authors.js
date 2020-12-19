@@ -15,7 +15,7 @@ router.get('/',async(req,res)=>{
    } 
    catch(e){
 
-      res.redirect('/',{errorMsg:e})
+      res.render('index.ejs',{errorMsg:e})
    } 
    
 })
