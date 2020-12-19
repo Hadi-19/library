@@ -14,7 +14,7 @@ app.set('layout','layouts/layout')
 app.use(expressLayouts);
 
 
-app.use(express.static('public'))
+app.use('/',express.static('public'))
 app.use(express.urlencoded({extended:false,limit:'10mb'}))
 
 const mongoose=require('mongoose')
