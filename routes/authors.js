@@ -6,8 +6,8 @@ const router=express.Router()
 router.get('/',async(req,res)=>{
    try{
       let searchOptions={}
-      if(req.query.name.trim() != null && req.query.name.trim() != ''){
-         searchOptions.name=new RegExp(req.query.name.trim(),'i')
+      if(req.query.name != null && req.query.name != ''){
+         searchOptions.name=new RegExp(req.query.name,'i')
       }
       const authors= await Author.find(searchOptions)
       res.render('authors/index.ejs',{authors,
