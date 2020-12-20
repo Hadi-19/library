@@ -1,5 +1,6 @@
 const express=require('express')
 const Author = require('../models/Author')
+const Book = require('../models/Book')
 const router=express.Router()
 
 //All authors route
@@ -34,7 +35,7 @@ router.post('/',async(req,res)=>{
 
     try{
       const newAuthor= await author.save();
-       res.redirect(`authors/${author.id}`)
+       res.redirect(`/authors/${author.id}`)
          // res.redirect(`/authors`)
         
     }
@@ -59,8 +60,17 @@ router.post('/',async(req,res)=>{
 
  }) 
 
- router.get('/:id',(req,res)=>{
-   res.send('Show Author '+req.params.id);
+ router.get('/:id',async(req,res)=>{
+   
+  try{
+   const author=await Author.findById(req.params.id);
+   const booksByAuthor=await Book.find({author:author.id}).limit(6).exec();
+   res.render('authors/show',{author,booksByAuthor})
+  }
+  catch{
+     res.redirect('/')
+
+  }
 })
 router.get('/:id/edit',async(req,res)=>{
     try{
@@ -79,13 +89,13 @@ router.put('/:id',async(req,res)=>{
          author= await Author.findById(req.params.id)
          author.name=req.body.name;
          await author.save()
-         res.redirect(`authors/${author.id}`)
+         res.redirect(`/authors/${author.id}`)
            // res.redirect(`/authors`)
           
       }
       catch{
           if(!author){
-              res.redirect('/authors')
+              res.redirect('/')
           }
           else{
             res.render('authors/new.ejs', {
@@ -96,11 +106,27 @@ router.put('/:id',async(req,res)=>{
         
       }
 })
-router.delete('/:id',(req,res)=>{
-   res.send('Delete Author '+req.params.id);
-})
+router.delete('/:id',async(req,res)=>{
+   let author
+    try{
+         author= await Author.findById(req.params.id)
+         await author.remove()
+         res.redirect(`/authors`)
+           // res.redirect(`/authors`)
+          
+      }
+      catch{
+          if(!author){
+              res.redirect('/')
+          }
+          else{
+            res.redirect(`/authors/${author.id}`)
 
+          }
+        
+      }
 
+   })
 
 
 module.exports=router;
