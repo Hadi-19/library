@@ -16,6 +16,7 @@ router.get('/',async(req,res)=>{
    catch(e){
 
       res.render('index.ejs',{errorMsg:e,books:[]})
+     //res.redirect('/')
    } 
    
 })
@@ -55,8 +56,23 @@ router.post('/',async(req,res)=>{
          res.redirect(`/authors`)
        }
      })*/
-    
+
  }) 
+
+ router.get('/:id',(req,res)=>{
+   res.send('Show Author '+req.params.id);
+})
+router.get('/:id/edit',(req,res)=>{
+   console.log(req.params.id);
+   res.send('Edit Author '+req.params.id);
+
+})
+router.put('/:id',(req,res)=>{
+   res.send('Update Author '+req.params.id);
+})
+router.delete('/:id',(req,res)=>{
+   res.send('Delete Author '+req.params.id);
+})
 
 
 

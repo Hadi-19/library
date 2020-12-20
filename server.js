@@ -7,12 +7,15 @@ const app=express();
 
 const expressLayouts=require('express-ejs-layouts');
 
+const methodOverride=require('method-override')
+
 //dfgdfgdgd
 
 app.set('view engine','ejs')
 app.set('layout','layouts/layout')
 app.use(expressLayouts);
 
+app.use(methodOverride('_method'))
 
 app.use('/',express.static('public'))
 app.use(express.urlencoded({extended:false,limit:'10mb'}))

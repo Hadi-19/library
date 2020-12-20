@@ -8,4 +8,9 @@ All authors page
 <br>
 <% authors.forEach(author => { %>
     <div><%= author.name%></div>
+    <a href="/authors/<%= author.id%>">View</a>
+    <a href="/authors/<%= author.id%>/edit">Edit</a>
+    <form action="/authors/<%= author.id%>?_method=DELETE" method="post">
+        <button type="submit">Delete</button>
+    </form>
 <% }) %>
