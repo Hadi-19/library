@@ -17,7 +17,7 @@ app.use(expressLayouts);
 
 app.use(methodOverride('_method'))
 
-app.use('/',express.static('public'))
+app.use(express.static('public'))
 app.use(express.urlencoded({extended:false,limit:'10mb'}))
 
 const mongoose=require('mongoose')
