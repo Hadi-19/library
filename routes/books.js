@@ -89,7 +89,7 @@ router.post('/',/*upload.single('cover'),*/async(req,res)=>{
  
    }
  })
- //New book route
+ //Edit book route
 router.get('/:id/edit',async(req,res)=>{
    try{
       const book=await Book.findById(req.params.id) 
